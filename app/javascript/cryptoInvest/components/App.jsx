@@ -1,7 +1,7 @@
 import React from 'react'
-import Register from "./Register";
+import Routes from "./Routes";
 
 const App = () =>
-  <Register />
+  <Routes/>
 
 export default App
