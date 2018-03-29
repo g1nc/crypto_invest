@@ -57,7 +57,7 @@
 						<div class="col-lg-5">
 							<div class="card m-b-20">
 								<div class="card-block">
-									<canvas id="ICOs" height="500"></canvas>
+									<div id="ICOs" height="500"></div>
 								</div>
 							</div>
 						</div> <!-- end col -->
@@ -65,7 +65,7 @@
 						<div class="col-lg-5">
 							<div class="card m-b-20">
 								<div class="card-block">
-									<canvas id="usersICOs" height="500"></canvas>
+									<div id="usersICOs" height="500"></div>
 								</div>
 							</div>
 						</div> <!-- end col -->
@@ -86,87 +86,81 @@
   !function($) {
     "use strict";
 
-    var ChartJs = function() {};
+    var ChartC3 = function() {};
 
-    ChartJs.prototype.respChart = function(selector,type,data, options) {
-      // get selector by context
-      var ctx = selector.get(0).getContext("2d");
-      // pointing parent container to make chart js inherit its width
-      var container = $(selector).parent();
+    ChartC3.prototype.init = function () {
+      var userIcoNames = [];
+      var userIcoValues = [];
+      var icoNames = [];
+      var icoPercents = [];
+      <% @user_icos.each do |user_ico| %>
+      userIcoNames.push("<%= user_ico.ico.name.split.join(" ") %>");
+      userIcoValues.push(<%= user_ico.value ? user_ico.value : 0 %>);
+      <% end %>
+      <% @icos.each do |ico| %>
+      icoNames.push("<%= ico.name.split.join(" ") %>");
+      icoPercents.push(<%= ico.percent ? ico.percent : 10 %>);
+      <% end %>
 
-      // enable resizing matter
-      $(window).resize( generateChart );
+      var barChartICOs = [];
+      var barChartICOPercents = ['%'];
+      icoNames.forEach(function(name, i) {
+        if (userIcoNames.indexOf(name) !== -1) {
+          barChartICOs.push(name);
+          barChartICOPercents.push(icoPercents[i])
+				}
+			});
 
-      // this function produce the responsive Chart JS
-      function generateChart(){
-        // make chart width fit with its container
-        var ww = selector.attr('width', $(container).width() );
-        switch(type){
-          case 'Pie':
-            new Chart(ctx, {type: 'pie', data: data, options: options});
-            break;
-          case 'Bar':
-            new Chart(ctx, {type: 'bar', data: data, options: options});
-            break;
+      //Bar Chart
+      c3.generate({
+        bindto: '#ICOs',
+        data: {
+          columns: [barChartICOPercents],
+					types: {'%': 'bar'},
+					colors: {'%': '#83d5b2'}
+        },
+        legend: {hide: true},
+        bar: {width: {ratio: .75}},
+        axis: {x: {type: 'category', categories: barChartICOs}}
+      });
+      console.log(userIcoValues)
+
+      var colors = []
+      var kw = new KolorWheel('#83d5b2');
+				kw.rel(-10, -10, 15, userIcoValues.length + 1).each(function() {
+				colors.push(this.getHex());
+      });
+      //Pie Chart
+      c3.generate({
+        bindto: '#usersICOs',
+        data: {
+          columns:
+            [['Crypto', <%= @user.crypto %>]].concat(userIcoNames.map(function(name,i) {
+						  console.log([name, userIcoValues[i]]);
+						  return [name, userIcoValues[i]];
+						}))
+          ,
+          type : 'pie'
+        },
+        color: {
+          pattern: colors
+        },
+        pie: {
+          label: {
+            show: true
+          }
         }
-        // Initiate new chart or Redraw
-      }
-      // run function - render chart at first load
-      generateChart();
-    },
-      //init
-      ChartJs.prototype.init = function() {
-      	var userIcoNames = [];
-      	var userIcoValues = [];
-      	var icoNames = [];
-      	var icoPercents = [];
-      	<% @user_icos.each do |user_ico| %>
-				userIcoNames.push("<%= user_ico.ico.name.split.join(" ") %>");
-				userIcoValues.push(<%= user_ico.value %>);
-        <% end %>
-        <% @icos.each do |ico| %>
-				icoNames.push("<%= ico.name.split.join(" ") %>");
-				icoPercents.push(<%= ico.percent ? ico.percent : 0 %>);
-        <% end %>
-        //Pie chart
-        var ICOs = {
-          labels: icoNames,
-          datasets: [
-            {
-              label: "ICOs",
-              backgroundColor: "#4ac18e",
-              borderColor: "#4ac18e",
-              borderWidth: 1,
-              hoverBackgroundColor: "#4ac18e",
-              hoverBorderColor: "#4ac18e",
-              data: icoPercents
-            }
-          ]
-        };
-        this.respChart($("#ICOs"), 'Bar', ICOs);
+      });
 
-        var usersICOs = {
-          labels: userIcoNames,
-          datasets: [
-            {
-              label: "User ICOs",
-              backgroundColor: "#4ac18e",
-              borderColor: "#4ac18e",
-              borderWidth: 1,
-              hoverBackgroundColor: "#4ac18e",
-              hoverBorderColor: "#4ac18e",
-              data: userIcoValues
-            }
-          ]
-        };
-        this.respChart($("#usersICOs"), 'Bar', usersICOs);
-      },
-      $.ChartJs = new ChartJs, $.ChartJs.Constructor = ChartJs
+    },
+      $.ChartC3 = new ChartC3, $.ChartC3.Constructor = ChartC3
 
   }(window.jQuery),
+
+//initializing
     function($) {
       "use strict";
-      $.ChartJs.init()
+      $.ChartC3.init()
     }(window.jQuery);
 </script>
 	<!-- End Right content here -->
