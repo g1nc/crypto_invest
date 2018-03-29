@@ -9,7 +9,8 @@ namespace :sync do
 
     (1..ws.num_cols).each do |col|
       ico = Ico.find_or_initialize_by(name: ws[1, col])
-      ico.update(percent: ws[2, col].gsub('%', ''))
+      percent = ws[2, col].gsub('%', '')
+      ico.update(percent: percent.present? ? percent : 0)
     end
   end
 
@@ -47,7 +48,8 @@ namespace :sync do
         ico      = Ico.find_or_create_by(name: ws[1, col])
         user_ico = UserIco.find_or_initialize_by(user_id: user.id, ico_id: ico.id)
         
-        user_ico.value = ws[row, col] 
+        value = ws[row, col]
+        user_ico.value = value.present? ? value : 0
         user_ico.save
       end
     end
