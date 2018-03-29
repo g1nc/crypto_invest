@@ -24,6 +24,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'webpack-rails'
 gem 'devise'
+gem 'google_drive'
 
 group :development, :test do
   gem 'pry-byebug'

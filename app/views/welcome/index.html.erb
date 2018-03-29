@@ -1,1 +1,39 @@
+<h2>User Info</h2>
+<p>Name: <%= user.name %></p>
+<p>Email: <%= user.email %></p>
+<p>Start deposit: <%= user.start_deposit %></p>
+<p>Total deposit: <%= user.total_deposit %></p>
+<p>Total cashout: <%= user.total_cashout %></p>
+<p>ICO: <%= user.ico %></p>
+<p>Crypto: <%= user.crypto %></p>
+<p>Total: <%= user.ico + user.crypto %></p>
+
+<h2>ICOs</h2>
+<table>
+  <tr>
+  	<th>Name</th>
+  	<th>Percent</th>
+  </tr>
+  <% @icos.each do |ico| %>
+    <tr>
+      <td><%= ico.name %></td>
+      <td><%= ico.percent %>%</td>		
+    </tr>
+  <% end %>	
+</table>
+
+<h2>User ICOs</h2>
+<table>
+  <tr>
+  	<th>Name</th>
+  	<th>Value</th>
+  </tr>
+  <% @user_icos.each do |user_ico| %>
+  	<tr>
+	  <td><%= user_ico.ico.name %></td>
+	  <td><%= user_ico.value %></td>	  
+  	</tr>
+  <% end %>
+</table>
+
 <%= javascript_pack_tag 'application' %>
