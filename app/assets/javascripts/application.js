@@ -14,3 +14,5 @@
 
 //= require rails-ujs
 //= require turbolinks
+//= require js/jquery.min
+//= require plugins/chart.js/chart.min
