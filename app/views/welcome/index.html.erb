@@ -1,12 +1,12 @@
 <h2>User Info</h2>
-<p>Name: <%= user.name %></p>
-<p>Email: <%= user.email %></p>
-<p>Start deposit: <%= user.start_deposit %></p>
-<p>Total deposit: <%= user.total_deposit %></p>
-<p>Total cashout: <%= user.total_cashout %></p>
-<p>ICO: <%= user.ico %></p>
-<p>Crypto: <%= user.crypto %></p>
-<p>Total: <%= user.ico + user.crypto %></p>
+<p>Name:          <%= @user.name %></p>
+<p>Email:         <%= @user.email %></p>
+<p>Start deposit: <%= @user.start_deposit %></p>
+<p>Total deposit: <%= @user.total_deposit %></p>
+<p>Total cashout: <%= @user.total_cashout %></p>
+<p>ICO:           <%= @user.ico %></p>
+<p>Crypto:        <%= @user.crypto %></p>
+<p>Total:         <%= @user.ico + @user.crypto %></p>
 
 <h2>ICOs</h2>
 <table>
