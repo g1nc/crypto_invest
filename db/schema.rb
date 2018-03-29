@@ -10,16 +10,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327222453) do
+ActiveRecord::Schema.define(version: 20180329144144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "icos", force: :cascade do |t|
+    t.string "name"
+    t.decimal "percent"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_icos", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "ico_id"
+    t.decimal "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ico_id"], name: "index_user_icos_on_ico_id"
+    t.index ["user_id"], name: "index_user_icos_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "ext_id"
+    t.string "name"
+    t.decimal "start_deposit"
+    t.decimal "total_deposit"
+    t.decimal "total_cashout"
+    t.decimal "ico"
+    t.decimal "crypto"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
