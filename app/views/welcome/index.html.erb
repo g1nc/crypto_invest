@@ -1,39 +1,221 @@
-<h2>User Info</h2>
-<p>Name:          <%= @user.name %></p>
-<p>Email:         <%= @user.email %></p>
-<p>Start deposit: <%= @user.start_deposit %></p>
-<p>Total deposit: <%= @user.total_deposit %></p>
-<p>Total cashout: <%= @user.total_cashout %></p>
-<p>ICO:           <%= @user.ico %></p>
-<p>Crypto:        <%= @user.crypto %></p>
-<p>Total:         <%= @user.ico + @user.crypto %></p>
+<style>
+	.card-block {
+		padding: 0.75rem;
+	}
+</style>
+<div class="content-page">
+	<div class="content">
+		<div class="page-content-wrapper ">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="row h-70 user-block">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-block">
+										<span><b>Имя:</b></span><br>
+										<span><%= @user.name %></span><br>
+										<span><b>Email:</b></span><br>
+										<span><%= @user.email %></span><br>
+										<span><b>Начальный депозит:</b></span><br>
+										<span><%= @user.start_deposit %></span><br>
+										<span><b>Всего депозит:</b></span><br>
+										<span><%= @user.total_deposit %></span><br>
+										<span><b>Всего кэшаут:</b></span><br>
+										<span><%= @user.total_cashout %></span><br>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row h-50">
+							<div class="col-md-12 d-flex align-items-end">
+								<button class="btn btn-primary btn-lg btn-block h-75" data-toggle="modal" data-target="#depositModal">Deposit</button>
+								<div id="depositModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="depositModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title mt-0" id="depositModalLabel">Deposit Request</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+											</div>
+											<div class="modal-body">
+												<textarea id="textarea" class="form-control" maxlength="225" rows="3" placeholder="This textarea has a limit of 225 chars."></textarea>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">Send</button>
+											</div>
+										</div><!-- /.modal-content -->
+									</div><!-- /.modal-dialog -->
+								</div><!-- /.modal -->
 
-<h2>ICOs</h2>
-<table>
-  <tr>
-  	<th>Name</th>
-  	<th>Percent</th>
-  </tr>
-  <% @icos.each do |ico| %>
-    <tr>
-      <td><%= ico.name %></td>
-      <td><%= ico.percent %>%</td>		
-    </tr>
-  <% end %>	
-</table>
+							</div>
+							<div class="col-md-12 d-flex align-items-end">
+								<button class="btn btn-primary btn-lg btn-block h-75" data-toggle="modal" data-target="#cacheModal">Cashout</button>
+								<div id="cacheModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cacheModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title mt-0" id="cacheModalLabel">Cashout Request</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+											</div>
+											<div class="modal-body">
+												<textarea id="textarea" class="form-control" maxlength="225" rows="3" placeholder="This textarea has a limit of 225 chars."></textarea>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+												<button type="button" class="btn btn-primary waves-effect waves-light" data-dismiss="modal">Send</button>
+											</div>
+										</div><!-- /.modal-content -->
+									</div><!-- /.modal-dialog -->
+								</div><!-- /.modal -->
+							</div>
+						</div>
+					</div>
+					<div class="col-md-10">
+						<div class="row">
+							<div class="col-md-3">
+								<div class="mini-stat clearfix bg-primary">
+									<span class="mini-stat-icon"><i class="mdi mdi-cart-outline"></i></span>
+									<div class="mini-stat-info text-right text-white">
+										<span class="counter"><%= current_user.ico %></span>
+										ICO портфель, $
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mini-stat clearfix bg-primary">
+									<span class="mini-stat-icon"><i class="mdi mdi-cart-outline"></i></span>
+									<div class="mini-stat-info text-right text-white">
+										<span class="counter"><%= current_user.crypto %></span>
+										Crypto портфель, $
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mini-stat clearfix bg-primary">
+									<span class="mini-stat-icon"><i class="mdi mdi-cart-outline"></i></span>
+									<div class="mini-stat-info text-right text-white">
+										<span class="counter"><%= current_user.crypto + current_user.ico %></span>
+										Общий баланс, $
+									</div>
+								</div>
+							</div>
+							<div class="col-md-3">
+								<div class="mini-stat clearfix bg-primary">
+									<span class="mini-stat-icon"><i class="mdi mdi-cart-outline"></i></span>
+									<div class="mini-stat-info text-right text-white">
+										<span class="counter"><%= 0 %></span>
+										Общая доходность, %
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="card m-b-20">
+									<div class="card-block">
+										<div id="usersICOs" height="500"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="card m-b-20">
+									<div class="card-block">
+										<div id="ICOs" height="500"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
-<h2>User ICOs</h2>
-<table>
-  <tr>
-  	<th>Name</th>
-  	<th>Value</th>
-  </tr>
-  <% @user_icos.each do |user_ico| %>
-  	<tr>
-	  <td><%= user_ico.ico.name %></td>
-	  <td><%= user_ico.value %></td>	  
-  	</tr>
-  <% end %>
-</table>
+			</div>
+		</div>
+	</div>
+	<footer class="footer">
+		© 2018 Crypto-Invest
+	</footer>
+</div>
 
+<script type="text/javascript" charset="utf-8">
+  !function($) {
+    "use strict";
+
+    var ChartC3 = function() {};
+
+    ChartC3.prototype.init = function () {
+      var userIcoNames = [];
+      var userIcoValues = [];
+      var icoNames = [];
+      var icoPercents = [];
+      <% @user_icos.each do |user_ico| %>
+      userIcoNames.push("<%= user_ico.ico.name.split.join(" ") %>");
+      userIcoValues.push(<%= user_ico.value ? user_ico.value : 0 %>);
+      <% end %>
+      <% @icos.each do |ico| %>
+      icoNames.push("<%= ico.name.split.join(" ") %>");
+      icoPercents.push(<%= ico.percent ? ico.percent : 0 %>);
+      <% end %>
+
+      var barChartICOs = [];
+      var barChartICOPercents = ['%'];
+      icoNames.forEach(function(name, i) {
+        if (userIcoNames.indexOf(name) !== -1) {
+          barChartICOs.push(name);
+          barChartICOPercents.push(icoPercents[i])
+				}
+			});
+
+      //Bar Chart
+      c3.generate({
+        bindto: '#ICOs',
+        data: {
+          columns: [barChartICOPercents],
+					types: {'%': 'bar'},
+					colors: {'%': '#83d5b2'}
+        },
+        legend: {hide: true},
+        bar: {width: {ratio: .75}},
+        axis: {x: {type: 'category', categories: barChartICOs}}
+      });
+
+      var colors = []
+      var kw = new KolorWheel('#83d5b2');
+				kw.rel(-10, -10, 15, userIcoValues.length + 1).each(function() {
+				colors.push(this.getHex());
+      });
+      //Pie Chart
+      c3.generate({
+        bindto: '#usersICOs',
+        data: {
+          columns:
+            [['Crypto', <%= @user.crypto %>]].concat(userIcoNames.map(function(name,i) {
+						  return [name, userIcoValues[i]];
+						}))
+          ,
+          type : 'pie'
+        },
+        color: {
+          pattern: colors
+        },
+        pie: {
+          label: {
+            show: true
+          }
+        }
+      });
+
+    },
+      $.ChartC3 = new ChartC3, $.ChartC3.Constructor = ChartC3
+
+  }(window.jQuery),
+
+//initializing
+    function($) {
+      "use strict";
+      $.ChartC3.init()
+    }(window.jQuery);
+</script>
+	<!-- End Right content here -->
+<!-- END wrapper -->
 <%= javascript_pack_tag 'application' %>
