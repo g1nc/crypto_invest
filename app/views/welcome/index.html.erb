@@ -1,42 +1,28 @@
+<style>
+	.card-block {
+		padding: 0.75rem;
+	}
+</style>
 <div class="content-page">
 	<div class="content">
 		<div class="page-content-wrapper ">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-3">
-						<div class="row h-50 user-block">
+					<div class="col-md-2">
+						<div class="row h-70 user-block">
 							<div class="col-md-12">
 								<div class="card">
 									<div class="card-block">
-										<table class="table">
-											<tbody>
-											<tr>
-												<th colspan="2">
-													<h2>User Info</h2>
-												</th>
-											</tr>
-											<tr>
-												<td>Name</td>
-												<td><%= @user.name %></td>
-											</tr>
-											<tr>
-												<td>Email</td>
-												<td><%= @user.email %></td>
-											</tr>
-											<tr>
-												<td>Start deposit</td>
-												<td><%= @user.start_deposit %></td>
-											</tr>
-											<tr>
-												<td>Total deposit</td>
-												<td><%= @user.total_deposit %></td>
-											</tr>
-											<tr>
-												<td>Total cashout</td>
-												<td><%= @user.total_cashout %></td>
-											</tr>
-											</tbody>
-										</table>
+										<span><b>Имя:</b></span><br>
+										<span><%= @user.name %></span><br>
+										<span><b>Email:</b></span><br>
+										<span><%= @user.email %></span><br>
+										<span><b>Начальный депозит:</b></span><br>
+										<span><%= @user.start_deposit %></span><br>
+										<span><b>Всего депозит:</b></span><br>
+										<span><%= @user.total_deposit %></span><br>
+										<span><b>Всего кэшаут:</b></span><br>
+										<span><%= @user.total_cashout %></span><br>
 									</div>
 								</div>
 							</div>
@@ -64,12 +50,12 @@
 
 							</div>
 							<div class="col-md-12 d-flex align-items-end">
-								<button class="btn btn-primary btn-lg btn-block h-75" data-toggle="modal" data-target="#cacheModal">Cache Out</button>
+								<button class="btn btn-primary btn-lg btn-block h-75" data-toggle="modal" data-target="#cacheModal">Cashout</button>
 								<div id="cacheModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cacheModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
 											<div class="modal-header">
-												<h5 class="modal-title mt-0" id="cacheModalLabel">Cache Out Request</h5>
+												<h5 class="modal-title mt-0" id="cacheModalLabel">Cashout Request</h5>
 												<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 											</div>
 											<div class="modal-body">
@@ -85,7 +71,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-md-9">
+					<div class="col-md-10">
 						<div class="row">
 							<div class="col-md-3">
 								<div class="mini-stat clearfix bg-primary">
@@ -128,14 +114,14 @@
 							<div class="col-md-6">
 								<div class="card m-b-20">
 									<div class="card-block">
-										<div id="ICOs" height="500"></div>
+										<div id="usersICOs" height="500"></div>
 									</div>
 								</div>
 							</div>
 							<div class="col-md-6">
 								<div class="card m-b-20">
 									<div class="card-block">
-										<div id="usersICOs" height="500"></div>
+										<div id="ICOs" height="500"></div>
 									</div>
 								</div>
 							</div>
