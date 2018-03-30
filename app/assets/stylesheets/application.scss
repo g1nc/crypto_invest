@@ -2,6 +2,37 @@
 @import "../admiry/css/style";
 @import "../javascripts/plugins/c3/c3.min";
 
+.content-page {
+  margin-left: unset;
+  margin-bottom: 0;
+  .user-block {
+    .card {
+      padding: 5px;
+    }
+    .table {
+      border: none;
+      margin-bottom: 0;
+      h2 {
+        margin: 0;
+        font-size: 1.3em;
+      }
+      th {
+        display: none;
+        border: none;
+        padding-top: 0;
+      }
+      td {
+        border-top: none;
+        padding: 5px;
+      }
+    };
+  }
+}
+
+.footer {
+  left: 0;
+}
+
 #error_explanation {
   h2 {
     display: none;

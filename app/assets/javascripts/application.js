@@ -15,6 +15,8 @@
 //= require rails-ujs
 //= require turbolinks
 //= require js/jquery.min
+//= require js/tether.min
+//= require js/bootstrap.min
 //= require plugins/d3/d3.min
 //= require plugins/c3/c3.min
 //= require plugins/kolorwheel/KolorWheel
