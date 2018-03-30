@@ -5,4 +5,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :validatable
 
   has_many :user_icos
+
+  def profit
+  	(total_balance + total_cashout - total_deposit) / start_deposit
+  end
+
+  def total_balance
+  	crypto + ico
+  end
 end

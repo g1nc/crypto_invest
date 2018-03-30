@@ -77,7 +77,7 @@
 								<div class="mini-stat clearfix bg-primary">
 									<span class="mini-stat-icon"><i class="mdi mdi-cart-outline"></i></span>
 									<div class="mini-stat-info text-right text-white">
-										<span class="counter"><%= current_user.ico %></span>
+										<span class="counter"><%= @user.ico %></span>
 										ICO портфель, $
 									</div>
 								</div>
@@ -86,7 +86,7 @@
 								<div class="mini-stat clearfix bg-primary">
 									<span class="mini-stat-icon"><i class="mdi mdi-cart-outline"></i></span>
 									<div class="mini-stat-info text-right text-white">
-										<span class="counter"><%= current_user.crypto %></span>
+										<span class="counter"><%= @user.crypto %></span>
 										Crypto портфель, $
 									</div>
 								</div>
@@ -95,7 +95,7 @@
 								<div class="mini-stat clearfix bg-primary">
 									<span class="mini-stat-icon"><i class="mdi mdi-cart-outline"></i></span>
 									<div class="mini-stat-info text-right text-white">
-										<span class="counter"><%= current_user.crypto + current_user.ico %></span>
+										<span class="counter"><%= @user.total_balance %></span>
 										Общий баланс, $
 									</div>
 								</div>
@@ -104,7 +104,7 @@
 								<div class="mini-stat clearfix bg-primary">
 									<span class="mini-stat-icon"><i class="mdi mdi-cart-outline"></i></span>
 									<div class="mini-stat-info text-right text-white">
-										<span class="counter"><%= 0 %></span>
+										<span class="counter"><%= format('%.2f', @user.profit) %></span>
 										Общая доходность, %
 									</div>
 								</div>
