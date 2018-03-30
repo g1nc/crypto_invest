@@ -168,7 +168,7 @@
       <% end %>
       <% @icos.each do |ico| %>
       icoNames.push("<%= ico.name.split.join(" ") %>");
-      icoPercents.push(<%= ico.percent ? ico.percent : 10 %>);
+      icoPercents.push(<%= ico.percent ? ico.percent : 0 %>);
       <% end %>
 
       var barChartICOs = [];
